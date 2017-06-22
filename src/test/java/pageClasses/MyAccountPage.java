@@ -14,7 +14,7 @@ public class MyAccountPage extends BasePage {
 	@FindBy(className = "logout")
 	private WebElement logoutButton;
 	
-	public void goToAuthenticationPage(){
+	public void signOut(){
 		logoutButton.click();
 	}
 }

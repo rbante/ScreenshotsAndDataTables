@@ -1,9 +1,6 @@
 package stepDefinitions;
 
-import java.util.concurrent.TimeUnit;
-
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import pageClasses.*;
@@ -17,18 +14,15 @@ import cucumber.api.java.en.When;
 public class DataTableTest {
 	
 	public WebDriver driver;
+	BasePage basePage;
 	LandingPage landingPage;
 	SignInPage signInPage;
 	MyAccountPage myAccountPage;
 	
 	@Before
 	public void beforeSetup(){
-		System.setProperty("webdriver.gecko.driver", "C:\\Roshu_selenium\\geckodriver\\geckodriver.exe");
-		driver = new FirefoxDriver();
-		driver.manage().window().maximize();
-		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		driver.get("http://automationpractice.com");
+		basePage = PageFactory.initElements(driver, BasePage.class);
+		driver = basePage.testSetup();
 	}
 
 	@After
@@ -55,7 +49,7 @@ public class DataTableTest {
 	
 	@And("^User logout$")
 	public void user_logout() throws Throwable {
-		myAccountPage.goToAuthenticationPage();
+		myAccountPage.signOut();
 	}
 
 }

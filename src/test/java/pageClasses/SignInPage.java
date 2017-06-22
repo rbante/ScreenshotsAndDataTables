@@ -24,7 +24,6 @@ public class SignInPage extends BasePage {
 		emailTextBox.sendKeys(id);
 		passwordTextBox.sendKeys(passwd);
 		signInButton.click();
-//		Assert.assertTrue(driver.getTitle().contains("account"));
 		return new MyAccountPage(driver);
 		
 	}
