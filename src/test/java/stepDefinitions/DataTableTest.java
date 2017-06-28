@@ -1,12 +1,14 @@
 package stepDefinitions;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
 import pageClasses.*;
+import cucumber.api.DataTable;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -17,40 +19,47 @@ public class DataTableTest {
 	BasePage basePage;
 	LandingPage landingPage;
 	SignInPage signInPage;
-	MyAccountPage myAccountPage;
+	SignUpPage signUpPage;
 	
-	@Before
+	@Before("@SignUp")
 	public void beforeSetup(){
 		basePage = PageFactory.initElements(driver, BasePage.class);
 		driver = basePage.testSetup();
 	}
 
-	@After
+	@After("@SignUp")
 	public void afterSetup(){
-		System.out.println("Byeee!!!");
-		driver.quit();
+		System.out.println("Bye Signup test");
+//		driver.quit();
 	}
 	
-	@Given("^User on signin page$")
-	public void user_on_signin_page() throws Throwable {
-	    landingPage = PageFactory.initElements(driver, LandingPage.class);
-	    signInPage = landingPage.goToSignInPage();
+	@Given("^User enter \"([^\"]*)\" and land on Signup page$")
+	public void user_enter_and_land_on_Signup_page(String emailaddr) throws Throwable {
+		landingPage = PageFactory.initElements(driver, LandingPage.class);
+		signInPage = landingPage.goToSignInPage();
+		signUpPage = signInPage.goToSignUpPage(emailaddr);
 	}
 
-	@When("^User enters \"([^\"]*)\" and \"([^\"]*)\" and click Signin button$")
-	public void user_enters_and_and_click_Signin_button(String EmailId, String Password) throws Throwable {
-		myAccountPage = signInPage.goToAccountPage(EmailId, Password);
-	}
-
-	@Then("^User redirects to account page$")
-	public void user_redirects_to_account_page() throws Throwable {
-		System.out.println("Account Page");
-	}
+	@When("^User enter all fields and click on Register$")
+	public void user_enter_all_fields_and_click_on_Register(DataTable table) throws Throwable {
 	
-	@And("^User logout$")
-	public void user_logout() throws Throwable {
-		myAccountPage.signOut();
+		List<List<String>> data = table.raw();
+		String firstname = data.get(1).get(1);
+		String lastname = data.get(2).get(1);
+		String password = data.get(3).get(1);
+		String address = data.get(4).get(1);
+		String city = data.get(5).get(1);
+		String state = data.get(6).get(1);
+		String postcode = data.get(7).get(1);
+		String mobile = data.get(8).get(1);
+		System.out.println(firstname + "and" + lastname + "and" + password);
+		signUpPage.registration(firstname, lastname, password , address, city, state, postcode, mobile);
 	}
+
+	@Then("^User shouls see My Account page$")
+	public void user_shouls_see_My_Account_page() throws Throwable {
+
+	}
+
 
 }
-

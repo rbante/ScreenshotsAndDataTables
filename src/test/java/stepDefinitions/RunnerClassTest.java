@@ -8,8 +8,9 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-			features = "src/test/resource",
-			glue = "classpath:stepDefinitions",
+			features = "src/test/resource/SignUp.feature",
+			//tags = {"@SignUP"},
+			glue = "stepDefinitions",
 			plugin = {"pretty", "html:target/html", "json:target/jsonreport.json"},
 			monochrome = true
 		)

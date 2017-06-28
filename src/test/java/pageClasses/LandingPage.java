@@ -11,14 +11,15 @@ public class LandingPage extends BasePage {
 	}
 	
 	@FindBy(className = "login")
-	private WebElement loginButton;
+	private WebElement signinButton;
 	
 	public SignInPage goToSignInPage(){
-		 loginButton.click();
+		 signinButton.click();
 		return new SignInPage(driver);
 		
 	}
-	
+		
+
 }
 
 

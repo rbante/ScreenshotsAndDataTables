@@ -20,12 +20,24 @@ public class SignInPage extends BasePage {
 	@FindBy(id = "SubmitLogin")
 	private WebElement signInButton;
 	
+	@FindBy(id = "email_create")
+	private WebElement emailAddrTextbox;
+	
+	@FindBy(id = "SubmitCreate")
+	private WebElement createAccountButton;
+	
 	public MyAccountPage goToAccountPage(String id, String passwd){
 		emailTextBox.sendKeys(id);
 		passwordTextBox.sendKeys(passwd);
 		signInButton.click();
 		return new MyAccountPage(driver);
 		
+	}
+	
+	public SignUpPage goToSignUpPage(String emailaddr){
+		emailAddrTextbox.sendKeys(emailaddr);
+		createAccountButton.click();
+		return new SignUpPage(driver);
 	}
 	
 
