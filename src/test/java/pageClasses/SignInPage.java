@@ -1,6 +1,7 @@
 package pageClasses;
 
 import org.openqa.selenium.WebDriver;
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
@@ -37,6 +38,7 @@ public class SignInPage extends BasePage {
 	public SignUpPage goToSignUpPage(String emailaddr){
 		emailAddrTextbox.sendKeys(emailaddr);
 		createAccountButton.click();
+		Assert.assertTrue("User is not re-directed on SignUp page", driver.getTitle().contains("account-creation"));
 		return new SignUpPage(driver);
 	}
 	

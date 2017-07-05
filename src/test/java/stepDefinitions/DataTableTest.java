@@ -30,7 +30,7 @@ public class DataTableTest {
 	@After("@SignUp")
 	public void afterSetup(){
 		System.out.println("Bye Signup test");
-//		driver.quit();
+		driver.quit();
 	}
 	
 	@Given("^User enter \"([^\"]*)\" and land on Signup page$")
@@ -38,6 +38,11 @@ public class DataTableTest {
 		landingPage = PageFactory.initElements(driver, LandingPage.class);
 		signInPage = landingPage.goToSignInPage();
 		signUpPage = signInPage.goToSignUpPage(emailaddr);
+		if(driver.getTitle().contains("account-creation")){
+			System.out.println("I am on SignUp Page");
+		}
+	
+		
 	}
 
 	@When("^User enter all fields and click on Register$")
@@ -52,7 +57,6 @@ public class DataTableTest {
 		String state = data.get(6).get(1);
 		String postcode = data.get(7).get(1);
 		String mobile = data.get(8).get(1);
-		System.out.println(firstname + "and" + lastname + "and" + password);
 		signUpPage.registration(firstname, lastname, password , address, city, state, postcode, mobile);
 	}
 
